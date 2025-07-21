@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic ROI Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 24px 32px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 350px;
+      width: 100%;
+    }
+    h2 {
+      margin-bottom: 16px;
+      color: #333;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin: 12px 0 4px;
+      color: #555;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      border: none;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 14px;
+      font-size: 1.1em;
+      font-weight: 500;
+      color: #006400;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>ROI Calculator</h2>
+    <form id="roiForm">
+      <label for="investment">Initial Investment ($):</label>
+      <input type="number" id="investment" min="0" step="any" required>
+
+      <label for="return">Final Return ($):</label>
+      <input type="number" id="return" min="0" step="any" required>
+
+      <button type="submit">Calculate ROI</button>
+    </form>
+    <div class="result" id="result"></div>
+  </div>
+  <script>
+    document.getElementById('roiForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const investment = parseFloat(document.getElementById('investment').value);
+      const finalReturn = parseFloat(document.getElementById('return').value);
+      const resultDiv = document.getElementById('result');
+
+      if (investment <= 0) {
+        resultDiv.textContent = "Initial investment must be greater than 0.";
+        resultDiv.style.color = "#b30000";
+        return;
+      }
+
+      const roi = ((finalReturn - investment) / investment) * 100;
+      resultDiv.textContent = `ROI: ${roi.toFixed(2)}%`;
+      resultDiv.style.color = roi >= 0 ? "#006400" : "#b30000";
+    });
+  </script>
+</body>
+</html>
